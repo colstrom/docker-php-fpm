@@ -7,7 +7,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0x4f4ea0aae5267a6c 
     && echo 'deb-src http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main' >> /etc/apt/sources.list \
     && apt-get update
 
-RUN apt-get install -y php5-fpm php5-dev php-pear curl
+RUN apt-get install -y php5-fpm php5-dev php-pear
+
+# Install Build Dependencies
+RUN apt-get install -y curl pkg-config
 
 # Install Composer
 RUN curl -Ss https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin \
@@ -28,12 +31,11 @@ RUN pecl install libsodium-beta \
     && php5enmod libsodium
 
 # Install zeromq extension
-RUN apt-get -y install pkg-config \
-    && pecl install zmq-beta \
+RUN pecl install zmq-beta \
     && echo "extension = zmq.so" > /etc/php5/mods-available/zmq.ini \
     && php5enmod zmq
 
-# Cleanup
+# Cleanup Build Dependencies
 RUN apt-get -y remove --purge curl pkg-config
 
 EXPOSE 9000
