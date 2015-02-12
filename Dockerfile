@@ -22,7 +22,19 @@ RUN curl -Sso /tmp/phpunit.phar https://phar.phpunit.de/phpunit.phar \
     && mv /tmp/phpunit.phar /usr/local/bin/phpunit \
     && chmod 755 /usr/local/bin/phpunit
 
-RUN apt-get -y remove --purge curl
+# Install libsodium extension
+RUN pecl install libsodium-beta \
+    && echo "extension = libsodium.so" > /etc/php5/mods-available/libsodium.ini \
+    && php5enmod libsodium
+
+# Install zeromq extension
+RUN apt-get -y install pkg-config \
+    && pecl install zmq-beta \
+    && echo "extension = zmq.so" > /etc/php5/mods-available/zmq.ini \
+    && php5enmod zmq
+
+# Cleanup
+RUN apt-get -y remove --purge curl pkg-config
 
 EXPOSE 9000
 
