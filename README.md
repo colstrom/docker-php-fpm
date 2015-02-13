@@ -3,6 +3,8 @@ php-fpm
 
 PHP 5.6 with a few extras:
 
+Included Extras
+---------------
 * Composer
 * PHPUnit
 * PEAR
