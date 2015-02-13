@@ -40,4 +40,4 @@ RUN apt-get -y remove --purge curl pkg-config
 
 EXPOSE 9000
 
-CMD ["php5-fpm", "--nodaemonize", "-d", "listen=9000"]
+ENTRYPOINT ["php5-fpm", "--nodaemonize", "-d", "listen=9000"]

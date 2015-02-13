@@ -9,6 +9,6 @@ Included Extras
 * PHPUnit
 * PEAR
 * libsodium
-* zeromq
+* zmq
 
 Preconfigured to listen on ```tcp/9000```.
