@@ -29,4 +29,4 @@ RUN php /tmp/composer-installer -- --install-dir=/usr/local/bin \
 EXPOSE 9000
 USER www-data
 
-# ENTRYPOINT ["php5-fpm", "--nodaemonize", "-d", "listen=9000"]
+ENTRYPOINT ["php5-fpm", "--nodaemonize", "-d", "listen=9000"]
