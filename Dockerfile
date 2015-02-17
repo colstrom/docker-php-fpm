@@ -26,6 +26,8 @@ RUN php /tmp/composer-installer -- --install-dir=/usr/local/bin \
     && mv /usr/local/bin/composer.phar /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/composer
 
+RUN cat /tmp/hardened.ini | tee -a /etc/php5/fpm/php.ini | tee -a /etc/php5/cli/php.ini
+
 EXPOSE 9000
 USER www-data
 
