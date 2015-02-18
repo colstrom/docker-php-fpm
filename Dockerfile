@@ -6,7 +6,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 0x4f4ea0aae5267a6c 
     && echo 'deb http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main' >> /etc/apt/sources.list \
     && echo 'deb-src http://ppa.launchpad.net/ondrej/php5-5.6/ubuntu trusty main' >> /etc/apt/sources.list \
     && apt-get update \
-    && apt-get install -y php5-fpm php5-dev php-pear \
+    && apt-get -y install php5-fpm php5-dev php-pear \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
@@ -26,10 +26,9 @@ RUN php /tmp/composer-installer -- --install-dir=/usr/local/bin \
     && mv /usr/local/bin/composer.phar /usr/local/bin/composer \
     && chmod 755 /usr/local/bin/composer
 
-COPY php.ini /tmp/php.ini
-RUN cat /tmp/php.ini | tee -a /etc/php5/fpm/php.ini | tee -a /etc/php5/cli/php.ini
+RUN sed -i 's/error_log = \/var\/log\/php5-fpm\.log/error_log = syslog/' /etc/php5/fpm/php-fpm.conf \
+    && echo 'error_log = syslog' | tee -a  /etc/php5/fpm/php.ini /etc/php5/cli/php.ini
 
 EXPOSE 9000
-USER www-data
 
 ENTRYPOINT ["php5-fpm", "--nodaemonize", "-d", "listen=9000"]
