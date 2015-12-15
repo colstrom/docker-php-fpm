@@ -1,13 +1,20 @@
-php-fpm
-=======
+# php-fpm
 
-PHP 5.6 with a few extras:
+While designed for web development, the PHP scripting language also provides general-purpose use.
 
-Included Extras
----------------
+## Included
+
 * Composer
 * PEAR
-* libsodium
-* zmq
 
-Preconfigured to listen on ```tcp/9000```.
+## Exposed Ports
+
+* `9000`
+
+## License
+
+[MIT](https://tldrlegal.com/license/mit-license)
+
+## Contributors
+
+* [Chris Olstrom](https://colstrom.github.io/) | [e-mail](mailto:chris@olstrom.com) | [Twitter](https://twitter.com/ChrisOlstrom)
